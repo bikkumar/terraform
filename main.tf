@@ -13,6 +13,9 @@ provider "aws" {
   profile = "default"
   region  = "ap-south-1"
 }
+data "aws_availability_zones" "available" {
+  state = "available"
+}
 
 output zone {
 value = "${data.aws_availability_zones.available.names.*}"
