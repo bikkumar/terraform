@@ -54,7 +54,7 @@ output count {
 value = length("${data.aws_regions.current.names.*}")
 }
 resource "aws_instance" "app_server1" {
-  ami           = "ami-04db49c0fb2215364"
+  ami           = "ami-052cef05d01020f1d"
   instance_type = "t2.micro"
   key_name = "tf"
   availability_zone = "ap-south-1b"
