@@ -14,36 +14,13 @@ provider "aws" {
   region  = "ap-south-1"
 }
 
-variable "server" {
-  type = string
-  default = "appserver"
-}
-variable "env" {
-  type = string
-  default = "dev"
-}
 
 data "aws_availability_zones" "available" {
   state = "available"
 }
 data "aws_regions" "current" {
   all_regions = true
-
-
 }
-data "aws_ami_ids" "ubuntu" {
-  owners = ["099720109477"]
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
-
-  }
-}
-output ami {
-value = "${data.aws_ami_ids.ubuntu.ids[0]}"
-}
-
 output zone {
 value = "${data.aws_availability_zones.available.names.*}"
 }
@@ -53,6 +30,7 @@ value = "${data.aws_regions.current.names.*}"
 output count {
 value = length("${data.aws_regions.current.names.*}")
 }
+
 resource "aws_instance" "app_server1" {
   ami           = "ami-052cef05d01020f1d"
   instance_type = "t2.micro"
