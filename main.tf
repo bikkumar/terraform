@@ -41,7 +41,7 @@ resource "aws_instance" "app_server1" {
 }  
    user_data = <<EOF
                    #!/bin/bash
-                    echo "I am root" > /tmp/bikkumar
+                    echo "{var.server}" > /tmp/bikkumar
    EOF
    ebs_block_device {
      device_name           = "/dev/sdb"
