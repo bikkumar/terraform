@@ -40,20 +40,9 @@ resource "aws_instance" "app_server1" {
   tags = {
       Name = "${var.server}-${var.env}"
 }  
-   user_data = <<EOF
-                   #!/bin/bash
-                    echo \${var.server} > /tmp/bikkumar
-                    sudo apt update
-                    sudo apt install apt-transport-https ca-certificates curl software-properties-common
-                    curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -
-                    sudo add-apt-repository "deb https://debian.neo4j.com stable 4.1"
-                    sudo apt install neo4j
-                    sudo systemctl enable neo4j.service
-                    sudo sed -i 's/#dbms.default_listen_address=0.0.0.0/dbms.default_listen_address=0.0.0.0/g' /etc/neo4j/neo4j.conf
-                    sudo systemctl stop neo4j.service
-                    sudo systemctl start neo4j.service
-   EOF
-   ebs_block_device {
+  user_data = "${file("name.sh")}"
+   
+ebs_block_device {
      device_name           = "/dev/sdb"
      delete_on_termination = true
      volume_type           = "gp2"
