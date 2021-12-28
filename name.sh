@@ -17,7 +17,7 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment; filename="userdata.txt"
 
-
+--//
 #!/bin/bash
  echo \${var.server} > /tmp/bikkumar
  sudo apt update 
@@ -29,4 +29,4 @@ Content-Disposition: attachment; filename="userdata.txt"
  sudo sed -i 's/#dbms.default_listen_address=0.0.0.0/dbms.default_listen_address=0.0.0.0/g' /etc/neo4j/neo4j.conf
  sudo systemctl stop neo4j.service
  sudo systemctl start neo4j.service
---//--
+
