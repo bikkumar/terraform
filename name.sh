@@ -19,7 +19,7 @@ Content-Disposition: attachment; filename="userdata.txt"
 
 --//
 #!/bin/bash
- echo \${var.server} > /tmp/bikkumar
+ echo "\${var.server}" > /tmp/bikkumar
  sudo apt update 
  sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
  curl -fsSL https://debian.neo4j.com/neotechnology.gpg.key | sudo apt-key add -

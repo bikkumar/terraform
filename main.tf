@@ -33,7 +33,8 @@ value = length("${data.aws_regions.current.names.*}")
 
 resource "aws_instance" "app_server1" {
   #ami           = "ami-052cef05d01020f1d"
-  ami            = "ami-0851b76e8b1bce90b"
+  #ami            = "ami-0851b76e8b1bce90b"
+   ami              = "ami-0f2e255ec956ade7f"
   instance_type = "t2.micro"
   key_name = "tf"
   availability_zone = "ap-south-1b"
