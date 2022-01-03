@@ -44,7 +44,7 @@ resource "aws_instance" "app_server1" {
   user_data = "${file("name.sh")}"
    
 ebs_block_device {
-     device_name           = "/dev/sdb"
+     device_name           = "/dev/sdc"
      delete_on_termination = true
      volume_type           = "gp2"
      volume_size           = 1
