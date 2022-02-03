@@ -49,5 +49,5 @@ resource "aws_s3_bucket_object" "object" {
   bucket = "${aws_s3_bucket.bucket.id}"
   acl    = "private"
   key    = "/Folder2/README.md"
-  source = "README.md
+  source = "README.md"
 }
