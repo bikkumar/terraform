@@ -48,6 +48,6 @@ output "bucket_folder2"{
 resource "aws_s3_bucket_object" "object" {
   bucket = "${aws_s3_bucket.bucket.id}"
   acl    = "private"
-  key    = "/Folder2/main.tf"
-  source = "/root/terraform/learn-terraform-aws-vm/main.tf"
+  key    = "/Folder2/README.md"
+  source = "/root/tf/README.md"
 }
