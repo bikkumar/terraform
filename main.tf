@@ -14,10 +14,6 @@ provider "aws" {
   region  = "ap-south-1"
 }
 
-variable "env" {
-  type = string
-  default = "dev"
-}
 
 resource "aws_s3_bucket" "bucket" {
   bucket = "bik-tf-test-bucket"
