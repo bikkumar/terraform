@@ -48,6 +48,6 @@ output "bucket_folder2"{
 resource "aws_s3_bucket_object" "object" {
   bucket = "${aws_s3_bucket.bucket.id}"
   acl    = "private"
-  key    = "/Folder2/ReadMe.txt"
-  source = "/tmp/ReadMe.txt"
+  key    = "/Folder2/README.md"
+  source = "README.md
 }
