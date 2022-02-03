@@ -14,39 +14,44 @@ provider "aws" {
   region  = "ap-south-1"
 }
 
-
-data "aws_availability_zones" "available" {
-  state = "available"
-}
-data "aws_regions" "current" {
-  all_regions = true
-}
-output zone {
-value = "${data.aws_availability_zones.available.names.*}"
-}
-output region {
-value = "${data.aws_regions.current.names.*}"
-}
-output count {
-value = length("${data.aws_regions.current.names.*}")
+variable "env" {
+  type = string
+  default = "dev"
 }
 
-resource "aws_instance" "app_server1" {
-  #ami           = "ami-052cef05d01020f1d"
-  #ami            = "ami-0851b76e8b1bce90b"
-   ami              = "ami-0f2e255ec956ade7f"
-  instance_type = "t2.micro"
-  key_name = "tf"
-  availability_zone = "ap-south-1b"
+resource "aws_s3_bucket" "bucket" {
+  bucket = "bik-tf-test-bucket"
+  acl    = "private"
+
   tags = {
-      Name = "${var.server}-${var.env}"
-}  
-  user_data = "${file("name.sh")}"
-   
-ebs_block_device {
-     device_name           = "/dev/sdc"
-     delete_on_termination = true
-     volume_type           = "gp2"
-     volume_size           = 1
+    Name        = "my bucket"
+    Environment =  "${var.env}"
+  }
 }
+resource "aws_s3_bucket_object" "folder1" {
+    bucket = "${aws_s3_bucket.bucket.id}"
+    acl    = "private"
+    key    = "Folder1/"
+    source = "/dev/null"
+}
+resource "aws_s3_bucket_object" "folder2" {
+    bucket = "${aws_s3_bucket.bucket.id}"
+    acl    = "private"
+    key    = "Folder2/"
+    source = "/dev/null"
+}
+
+output "bucket_folder1"{
+  value       =  "https://${aws_s3_bucket.bucket.bucket_domain_name}/Folder1/"
+  description = "FQDN of bucket Folder"
+}
+output "bucket_folder2"{
+  value       =  "https://${aws_s3_bucket.bucket.bucket_domain_name}/Folder2/"
+  description = "FQDN of bucket Folder"
+}
+resource "aws_s3_bucket_object" "object" {
+  bucket = "${aws_s3_bucket.bucket.id}"
+  acl    = "private"
+  key    = "/Folder2/main.tf"
+  source = "/root/terraform/learn-terraform-aws-vm/main.tf"
 }
